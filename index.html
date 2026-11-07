@@ -2312,6 +2312,8 @@ input:focus,select:focus,textarea:focus{outline:1px solid var(--bb-amber)!import
 @media (max-width:1760px){.wb-id>b{display:none}}
 .doors .wb-back{box-shadow:none!important;border-radius:0!important}
 .doors .wb-back:hover{filter:brightness(1.1)}
+/* Accueil Connexions : libellés plus petits, sans chevauchement (72 unités max par colonne de 80) */
+.w-art .lb.net-lb{font-size:10px;letter-spacing:-.01em}
 </style>
 <script>
 /* ================================================================
@@ -5384,11 +5386,11 @@ ART.veille=function(d,tips){
   return s;};
 ART.net=function(d,tips){
   var sm=CK.netSummary?CK.netSummary():{list:[]},C={ok:"var(--up)",warn:"var(--warn)",down:"var(--down)",idle:"var(--faint)"},s="";
-  sm.list.forEach(function(x,i){var c=i%5,r=Math.floor(i/5),cx=40+c*80,cy=36+r*60,col=C[x.st.k];
+  sm.list.forEach(function(x,i){var c=i%5,r=Math.floor(i/5),cx=40+c*80,cy=36+r*60,col=C[x.st.k];var nm=x.s.name.split(" ")[0];
     var tt=tips?T(tipHead(x.s.name,esc(x.s.p),col)+tipRow("État",esc(x.st.l),x.st.k==="ok"?"up":x.st.k==="down"?"down":"")+"<span class=\"tx\">"+esc(x.st.d)+"</span><span class=\"ta\">Clic : ouvrir Connexions</span>","net:"+x.s.id):"";
     s+="<g class=\"hv\""+tt+">"+(tips?"<rect class=\"hit\" x=\""+(cx-38)+"\" y=\""+(cy-24)+"\" width=\"76\" height=\"56\"/>":"")+
       "<circle cx=\""+cx+"\" cy=\""+cy+"\" r=\"12\" style=\"fill:"+col+";opacity:.18\"/><circle cx=\""+cx+"\" cy=\""+cy+"\" r=\"6\" style=\"fill:"+col+"\"/>"+
-      "<text class=\"lb sm\" x=\""+cx+"\" y=\""+(cy+26)+"\">"+esc(x.s.name.split(" ")[0])+"</text></g>";});
+      "<text class=\"lb sm net-lb\" x=\""+cx+"\" y=\""+(cy+26)+"\""+(nm.length>11?" textLength=\"72\" lengthAdjust=\"spacingAndGlyphs\"":"")+">"+esc(nm)+"</text></g>";});
   return s;};
 function art(i,d,tips){return '<svg class="w-art" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+ART[W[i].v](d,tips)+'</svg>';}
 

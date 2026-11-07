@@ -1473,3 +1473,5 @@ input:focus,select:focus,textarea:focus{outline:1px solid var(--bb-amber)!import
 @media (max-width:1760px){.wb-id>b{display:none}}
 .doors .wb-back{box-shadow:none!important;border-radius:0!important}
 .doors .wb-back:hover{filter:brightness(1.1)}
+/* Accueil Connexions : libellés plus petits, sans chevauchement (72 unités max par colonne de 80) */
+.w-art .lb.net-lb{font-size:10px;letter-spacing:-.01em}
