@@ -2375,7 +2375,7 @@ function logo(base){return '<img class="lo" alt="" loading="lazy" src="https://s
 var NET={};CK.NET=NET;
 function netId(url){url=String(url);
   var R=[["ws.okx.com","okxws"],["stream.bybit.com","bybit"],["fstream.binance.com","binws"],["okx.com/api","okx"],["fapi.binance.com","binfx"],["scanner.tradingview.com","tvscan"],
-    ["alternative.me","fng"],["financialjuice.com","fj"],["treeofalpha.com","tree"],["workers.dev","tg"],["github.io","robot"],["generativelanguage.googleapis.com","gemini"],["api.mistral.ai","iapay"],["api.openai.com","iapay"],["api.anthropic.com","iapay"],["api.x.ai","iapay"],["api.perplexity.ai","iapay"],["api.deepseek.com","iapay"],["openrouter.ai","openrouter"],["allorigins","ff"],["translate.googleapis.com","tr"],["api.bybit.com","bybitrest"],["api.bitget.com","bitget"],["hyperliquid.xyz","hl"],["deribit.com","deribit"],["coinbase.com","coinbase"],["mymemory","tr"],["tradingview.com","tvw"]];
+    ["alternative.me","fng"],["financialjuice.com","fj"],["treeofalpha.com","tree"],["workers.dev","tg"],["github.io","robot"],["translate.googleapis.com","tr"],["api.bybit.com","bybitrest"],["api.bitget.com","bitget"],["hyperliquid.xyz","hl"],["deribit.com","deribit"],["coinbase.com","coinbase"],["mymemory","tr"],["tradingview.com","tvw"]];
   for(var i=0;i<R.length;i++)if(url.indexOf(R[i][0])>=0)return R[i][1];return null;}
 function netRec(id){return NET[id]||(NET[id]={calls:0,ok:0,err:0,lastOk:0,lastErr:0,ms:0,msg:"",code:0,open:false,opens:0,closes:0,lastMsg:0,msgs:[],openTs:0});}
 function netOk(url,t0){var id=netId(url);if(!id)return;var r=netRec(id);r.calls++;r.ok++;r.lastOk=Date.now();r.ms=Math.round(performance.now()-t0);}
@@ -4664,11 +4664,7 @@ var SRC=[
   {id:"fj",name:"FinancialJuice",p:"RSS",kind:"http",exp:600000,to:["news"],ep:["www.financialjuice.com/feed.ashx?xy=rss"],data:"News macro en quasi temps réel.",freq:"Toutes les minutes ; copie du robot si le site bloque"},
   {id:"tree",name:"Tree of Alpha",p:"JSON",kind:"http",exp:120000,to:["news"],ep:["news.treeofalpha.com/api/news"],data:"Fil crypto à la minute : dépêches des comptes d'actu (The Block, CoinDesk, Wu Blockchain, Lookonchain…), annonces des exchanges (listings, delistings), SEC / Maison-Blanche.",freq:"Toutes les 20 s"},
   {id:"tg",name:"News Telegram (relais)",p:"REST",kind:"http",exp:180000,to:["news","veille"],ep:["…workers.dev/tg"],data:"Walter Bloomberg, Watcher Guru, PhoenixNews, BWEnews, unfolded et Whale Alert (transferts de plus de 50 M$), via le relais Cloudflare du Desk.",freq:"1 fois par minute, onglet visible"},
-  {id:"iapay",name:"IA payantes (au choix)",p:"REST",kind:"http",exp:900000,to:["veille"],ep:["api.openai.com","api.anthropic.com","api.x.ai","api.perplexity.ai","api.deepseek.com","api.mistral.ai"],data:"ChatGPT, Claude, Grok, Perplexity, DeepSeek ou Mistral comme cerveau de l'agent de veille, avec la clé API de l'utilisateur (gardée dans le navigateur).",freq:"Toutes les 2 à 10 min, seulement avec une clé"},
-  {id:"openrouter",name:"OpenRouter (IA)",p:"REST",kind:"http",exp:900000,to:["veille"],ep:["openrouter.ai/api/v1/chat/completions"],data:"Un des cerveaux possibles de l'agent de veille (modèles gratuits, 50 analyses par jour). Clé personnelle, gardée dans le navigateur.",freq:"En relais, seulement avec une clé"},
-  {id:"gemini",name:"Gemini (IA)",p:"REST",kind:"http",exp:900000,to:["veille"],ep:["generativelanguage.googleapis.com/v1beta/models/…:generateContent"],data:"Un des cerveaux possibles de l'agent de veille : reçoit l'état du marché et décide quoi dire. Clé personnelle, gardée dans le navigateur.",freq:"Toutes les 2 à 10 min, seulement avec une clé"},
   {id:"robot",name:"Robot GitHub",p:"JSON",kind:"http",exp:1800000,to:["journee","news"],ep:["…github.io/desk/data/calendar.json","…/data/news.json","…/data/fj.json"],data:"Agenda économique de la semaine et de la suivante (prévisions, chiffres précédents), news crypto de 6 sites traduites en français, copie de secours de FinancialJuice.",freq:"Mis à jour toutes les 10 min par GitHub"},
-  {id:"ff",name:"Forex Factory (secours)",p:"REST",kind:"fb",exp:900000,to:["journee"],ep:["désactivé : le proxy public allorigins ne répond plus"],data:"Ancien secours de l'agenda. L'agenda vient du robot GitHub.",freq:"Désactivé"},
   {id:"tr",name:"Traduction",p:"REST",kind:"od",to:["news"],ep:["translate.googleapis.com (gtx)","api.mymemory.translated.net (secours)"],data:"Titres de news traduits en français.",freq:"À chaque nouvelle news"}
 ];
 CK.NETSRC=SRC;
@@ -5421,7 +5417,7 @@ function insights(i,d){
   }return [];
 }
 function metric(i,d){var s=stats(i,d)[0];return s?s[0]+" · "+s[1]:"";}
-function hot(i,d){var nx=agenda(d)[0];if(W[i].v==="net")return CK.netSummary&&CK.netSummary().list.some(function(x){return x.st.k==="down"&&x.s.id!=="relay"&&x.s.id!=="ff";});return (W[i].v==="liq"&&d.hotLiq)||(W[i].v==="journee"&&nx&&nx.hot)||(W[i].v==="news"&&d.items[0]&&d.items[0].ts&&d.now-d.items[0].ts<300000);}
+function hot(i,d){var nx=agenda(d)[0];if(W[i].v==="net")return CK.netSummary&&CK.netSummary().list.some(function(x){return x.st.k==="down"&&x.s.id!=="relay";});return (W[i].v==="liq"&&d.hotLiq)||(W[i].v==="journee"&&nx&&nx.hot)||(W[i].v==="news"&&d.items[0]&&d.items[0].ts&&d.now-d.items[0].ts<300000);}
 
 /* ---------- Construction : héros (titre + illustration) + rangée de cartes ---------- */
 CK.FLOW=true;

@@ -159,7 +159,7 @@ function insights(i,d){
   }return [];
 }
 function metric(i,d){var s=stats(i,d)[0];return s?s[0]+" · "+s[1]:"";}
-function hot(i,d){var nx=agenda(d)[0];if(W[i].v==="net")return CK.netSummary&&CK.netSummary().list.some(function(x){return x.st.k==="down"&&x.s.id!=="relay"&&x.s.id!=="ff";});return (W[i].v==="liq"&&d.hotLiq)||(W[i].v==="journee"&&nx&&nx.hot)||(W[i].v==="news"&&d.items[0]&&d.items[0].ts&&d.now-d.items[0].ts<300000);}
+function hot(i,d){var nx=agenda(d)[0];if(W[i].v==="net")return CK.netSummary&&CK.netSummary().list.some(function(x){return x.st.k==="down"&&x.s.id!=="relay";});return (W[i].v==="liq"&&d.hotLiq)||(W[i].v==="journee"&&nx&&nx.hot)||(W[i].v==="news"&&d.items[0]&&d.items[0].ts&&d.now-d.items[0].ts<300000);}
 
 /* ---------- Construction : héros (titre + illustration) + rangée de cartes ---------- */
 CK.FLOW=true;
